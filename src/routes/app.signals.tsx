@@ -165,7 +165,7 @@ function Signals() {
           </div>
         </Panel>
         <div className="space-y-4">
-          <div className="grid grid-cols-2 gap-3 lg:grid-cols-4">
+          <div className="grid grid-cols-2 gap-3 2xl:grid-cols-4">
             <StatCard label="Average waiting" value={`${m.avgWait}s`} icon={Clock} tone="amber" />
             <StatCard label="Average queue" value={m.avgQueue} icon={Layers} tone="violet" />
             <StatCard label="Vehicles processed" value={m.processed} icon={Gauge} tone="green" />

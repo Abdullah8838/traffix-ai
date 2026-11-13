@@ -1,5 +1,13 @@
 {
   "version": "7",
   "dialect": "postgresql",
-  "entries": []
+  "entries": [
+    {
+      "idx": 0,
+      "version": "7",
+      "when": 1794561327364,
+      "tag": "0000_traffix_core_schema",
+      "breakpoints": true
+    }
+  ]
 }

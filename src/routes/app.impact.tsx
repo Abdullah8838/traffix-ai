@@ -11,7 +11,7 @@ import { EDGE_MAP, NODE_MAP } from "@/lib/traffic/graph";
 import { INCIDENT_LABEL } from "@/lib/traffic/incidents";
 import { isActive } from "@/hooks/use-traffic-data";
 import { simStore } from "@/lib/traffic/store";
-import { PALETTE, SERIES_HEX } from "@/lib/palette";
+import { SERIES_HEX } from "@/lib/palette";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import type { IncidentType } from "@/lib/traffic/conditions";
@@ -131,7 +131,7 @@ function Impact() {
                       <td className="px-4 py-1.5">{a.edge.name}</td>
                       <td className="px-2"><Badge variant={a.hop === 1 ? "warning" : "muted"}>{a.hop === 1 ? "direct" : "2nd-order"}</Badge></td>
                       <td className="px-2 tabular">{Math.round(a.before * 100)}%</td>
-                      <td className="px-2 font-semibold tabular" style={{ color: a.after - a.before > 0.05 ? PALETTE.red : undefined }}>{Math.round(a.after * 100)}%</td>
+                      <td className={`px-2 font-semibold tabular ${a.after - a.before > 0.05 ? "text-danger" : ""}`}>{Math.round(a.after * 100)}%</td>
                     </tr>
                   ))}
                 </tbody>

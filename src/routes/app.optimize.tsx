@@ -118,7 +118,7 @@ function Optimize() {
                     <div className="mt-3 grid grid-cols-2 gap-x-6 gap-y-2 sm:grid-cols-3">
                       {(Object.keys(FACTOR_LABELS) as (keyof Weights)[]).map((k) => {
                         const v = ranked.find((r) => r.key === activeKey)!.factors[k];
-                        return <div key={k}><div className="flex justify-between text-xs"><span className="text-muted-foreground">{FACTOR_LABELS[k]}</span><span className="tabular">{v}</span></div><Meter value={1 - v / 100} /></div>;
+                        return <div key={k}><div className="flex justify-between text-xs"><span className="text-muted-foreground">{FACTOR_LABELS[k]}</span><span className="tabular">{v}</span></div><div className="mt-1 h-1.5 overflow-hidden rounded-full bg-muted"><div className="h-full rounded-full bg-cyan" style={{ width: `${v}%` }} /></div></div>;
                       })}
                     </div>
                   </div>

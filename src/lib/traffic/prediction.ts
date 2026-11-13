@@ -1,10 +1,9 @@
 // Short-horizon congestion forecast. A transparent heuristic over historical
 // demand profiles, incidents and conditions — not a trained ML model.
 import { EDGES, NODE_MAP, connectedEdges, type RoadEdge } from "./graph";
-import { clamp, congestion, demandProfile, type NetworkState } from "./conditions";
+import { clamp, congestion, demandProfile, edgeTravelMin, type NetworkState } from "./conditions";
 import { astar } from "./algorithms";
 import { ASTAR_MIN_PER_KM } from "./routing";
-import { edgeTravelMin } from "./conditions";
 
 export const HORIZONS = [0, 5, 10, 15, 20, 30] as const;
 

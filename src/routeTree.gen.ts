@@ -14,6 +14,7 @@ import { Route as AppRouteImport } from './routes/app'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as AppIndexRouteImport } from './routes/app.index'
 import { Route as AppMapRouteImport } from './routes/app.map'
+import { Route as AppPredictionRouteImport } from './routes/app.prediction'
 import { Route as AppRoutesRouteImport } from './routes/app.routes'
 
 const IndexRoute = IndexRouteImport.update({
@@ -41,6 +42,11 @@ const AppMapRoute = AppMapRouteImport.update({
   path: '/map',
   getParentRoute: () => AppRoute,
 } as any)
+const AppPredictionRoute = AppPredictionRouteImport.update({
+  id: '/prediction',
+  path: '/prediction',
+  getParentRoute: () => AppRoute,
+} as any)
 const AppRoutesRoute = AppRoutesRouteImport.update({
   id: '/routes',
   path: '/routes',
@@ -52,6 +58,7 @@ export interface FileRoutesByFullPath {
   '/app': typeof AppRouteWithChildren
   '/auth': typeof AuthRoute
   '/app/map': typeof AppMapRoute
+  '/app/prediction': typeof AppPredictionRoute
   '/app/routes': typeof AppRoutesRoute
   '/app/': typeof AppIndexRoute
 }
@@ -59,6 +66,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
   '/app/map': typeof AppMapRoute
+  '/app/prediction': typeof AppPredictionRoute
   '/app/routes': typeof AppRoutesRoute
   '/app': typeof AppIndexRoute
 }
@@ -68,15 +76,31 @@ export interface FileRoutesById {
   '/app': typeof AppRouteWithChildren
   '/auth': typeof AuthRoute
   '/app/map': typeof AppMapRoute
+  '/app/prediction': typeof AppPredictionRoute
   '/app/routes': typeof AppRoutesRoute
   '/app/': typeof AppIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/app' | '/auth' | '/app/map' | '/app/routes' | '/app/'
+  fullPaths:
+    | '/'
+    | '/app'
+    | '/auth'
+    | '/app/map'
+    | '/app/prediction'
+    | '/app/routes'
+    | '/app/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/auth' | '/app/map' | '/app/routes' | '/app'
-  id: '__root__' | '/' | '/app' | '/auth' | '/app/map' | '/app/routes' | '/app/'
+  to: '/' | '/auth' | '/app/map' | '/app/prediction' | '/app/routes' | '/app'
+  id:
+    | '__root__'
+    | '/'
+    | '/app'
+    | '/auth'
+    | '/app/map'
+    | '/app/prediction'
+    | '/app/routes'
+    | '/app/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -122,6 +146,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppMapRouteImport
       parentRoute: typeof AppRoute
     }
+    '/app/prediction': {
+      id: '/app/prediction'
+      path: '/prediction'
+      fullPath: '/app/prediction'
+      preLoaderRoute: typeof AppPredictionRouteImport
+      parentRoute: typeof AppRoute
+    }
     '/app/routes': {
       id: '/app/routes'
       path: '/routes'
@@ -134,12 +165,14 @@ declare module '@tanstack/react-router' {
 
 interface AppRouteChildren {
   AppMapRoute: typeof AppMapRoute
+  AppPredictionRoute: typeof AppPredictionRoute
   AppRoutesRoute: typeof AppRoutesRoute
   AppIndexRoute: typeof AppIndexRoute
 }
 
 const AppRouteChildren: AppRouteChildren = {
   AppMapRoute: AppMapRoute,
+  AppPredictionRoute: AppPredictionRoute,
   AppRoutesRoute: AppRoutesRoute,
   AppIndexRoute: AppIndexRoute,
 }

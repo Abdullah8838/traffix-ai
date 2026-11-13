@@ -22,6 +22,7 @@ import { Route as AppPredictionRouteImport } from './routes/app.prediction'
 import { Route as AppReportRouteImport } from './routes/app.report'
 import { Route as AppRoutesRouteImport } from './routes/app.routes'
 import { Route as AppSignalsRouteImport } from './routes/app.signals'
+import { Route as AppTwinRouteImport } from './routes/app.twin'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -88,6 +89,11 @@ const AppSignalsRoute = AppSignalsRouteImport.update({
   path: '/signals',
   getParentRoute: () => AppRoute,
 } as any)
+const AppTwinRoute = AppTwinRouteImport.update({
+  id: '/twin',
+  path: '/twin',
+  getParentRoute: () => AppRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -102,6 +108,7 @@ export interface FileRoutesByFullPath {
   '/app/report': typeof AppReportRoute
   '/app/routes': typeof AppRoutesRoute
   '/app/signals': typeof AppSignalsRoute
+  '/app/twin': typeof AppTwinRoute
   '/app/': typeof AppIndexRoute
 }
 export interface FileRoutesByTo {
@@ -116,6 +123,7 @@ export interface FileRoutesByTo {
   '/app/report': typeof AppReportRoute
   '/app/routes': typeof AppRoutesRoute
   '/app/signals': typeof AppSignalsRoute
+  '/app/twin': typeof AppTwinRoute
   '/app': typeof AppIndexRoute
 }
 export interface FileRoutesById {
@@ -132,6 +140,7 @@ export interface FileRoutesById {
   '/app/report': typeof AppReportRoute
   '/app/routes': typeof AppRoutesRoute
   '/app/signals': typeof AppSignalsRoute
+  '/app/twin': typeof AppTwinRoute
   '/app/': typeof AppIndexRoute
 }
 export interface FileRouteTypes {
@@ -149,6 +158,7 @@ export interface FileRouteTypes {
     | '/app/report'
     | '/app/routes'
     | '/app/signals'
+    | '/app/twin'
     | '/app/'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -163,6 +173,7 @@ export interface FileRouteTypes {
     | '/app/report'
     | '/app/routes'
     | '/app/signals'
+    | '/app/twin'
     | '/app'
   id:
     | '__root__'
@@ -178,6 +189,7 @@ export interface FileRouteTypes {
     | '/app/report'
     | '/app/routes'
     | '/app/signals'
+    | '/app/twin'
     | '/app/'
   fileRoutesById: FileRoutesById
 }
@@ -280,6 +292,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppSignalsRouteImport
       parentRoute: typeof AppRoute
     }
+    '/app/twin': {
+      id: '/app/twin'
+      path: '/twin'
+      fullPath: '/app/twin'
+      preLoaderRoute: typeof AppTwinRouteImport
+      parentRoute: typeof AppRoute
+    }
   }
 }
 
@@ -293,6 +312,7 @@ interface AppRouteChildren {
   AppReportRoute: typeof AppReportRoute
   AppRoutesRoute: typeof AppRoutesRoute
   AppSignalsRoute: typeof AppSignalsRoute
+  AppTwinRoute: typeof AppTwinRoute
   AppIndexRoute: typeof AppIndexRoute
 }
 
@@ -306,6 +326,7 @@ const AppRouteChildren: AppRouteChildren = {
   AppReportRoute: AppReportRoute,
   AppRoutesRoute: AppRoutesRoute,
   AppSignalsRoute: AppSignalsRoute,
+  AppTwinRoute: AppTwinRoute,
   AppIndexRoute: AppIndexRoute,
 }
 

@@ -5,4 +5,4 @@
 - [x] Design system, landing page with 3D city
 - [x] App shell: sidebar, demo mode badge, reset demo, auth page
 - [x] Pages: dashboard, map, route planner, prediction, report, incidents, impact, signals, emergency, multi-factor, digital twin, what-if, analytics, admin, settings
-- [ ] Verify in browser
+- [x] Verify in browser

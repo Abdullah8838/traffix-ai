@@ -12,6 +12,12 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AppRouteImport } from './routes/app'
 import { Route as AuthRouteImport } from './routes/auth'
+import { Route as AppIndexRouteImport } from './routes/app.index'
+import { Route as AppIncidentsRouteImport } from './routes/app.incidents'
+import { Route as AppMapRouteImport } from './routes/app.map'
+import { Route as AppPredictionRouteImport } from './routes/app.prediction'
+import { Route as AppReportRouteImport } from './routes/app.report'
+import { Route as AppRoutesRouteImport } from './routes/app.routes'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -28,34 +34,108 @@ const AuthRoute = AuthRouteImport.update({
   path: '/auth',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AppIndexRoute = AppIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppIncidentsRoute = AppIncidentsRouteImport.update({
+  id: '/incidents',
+  path: '/incidents',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppMapRoute = AppMapRouteImport.update({
+  id: '/map',
+  path: '/map',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppPredictionRoute = AppPredictionRouteImport.update({
+  id: '/prediction',
+  path: '/prediction',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppReportRoute = AppReportRouteImport.update({
+  id: '/report',
+  path: '/report',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppRoutesRoute = AppRoutesRouteImport.update({
+  id: '/routes',
+  path: '/routes',
+  getParentRoute: () => AppRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/app': typeof AppRoute
+  '/app': typeof AppRouteWithChildren
   '/auth': typeof AuthRoute
+  '/app/incidents': typeof AppIncidentsRoute
+  '/app/map': typeof AppMapRoute
+  '/app/prediction': typeof AppPredictionRoute
+  '/app/report': typeof AppReportRoute
+  '/app/routes': typeof AppRoutesRoute
+  '/app/': typeof AppIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/app': typeof AppRoute
   '/auth': typeof AuthRoute
+  '/app/incidents': typeof AppIncidentsRoute
+  '/app/map': typeof AppMapRoute
+  '/app/prediction': typeof AppPredictionRoute
+  '/app/report': typeof AppReportRoute
+  '/app/routes': typeof AppRoutesRoute
+  '/app': typeof AppIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/app': typeof AppRoute
+  '/app': typeof AppRouteWithChildren
   '/auth': typeof AuthRoute
+  '/app/incidents': typeof AppIncidentsRoute
+  '/app/map': typeof AppMapRoute
+  '/app/prediction': typeof AppPredictionRoute
+  '/app/report': typeof AppReportRoute
+  '/app/routes': typeof AppRoutesRoute
+  '/app/': typeof AppIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/app' | '/auth'
+  fullPaths:
+    | '/'
+    | '/app'
+    | '/auth'
+    | '/app/incidents'
+    | '/app/map'
+    | '/app/prediction'
+    | '/app/report'
+    | '/app/routes'
+    | '/app/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/app' | '/auth'
-  id: '__root__' | '/' | '/app' | '/auth'
+  to:
+    | '/'
+    | '/auth'
+    | '/app/incidents'
+    | '/app/map'
+    | '/app/prediction'
+    | '/app/report'
+    | '/app/routes'
+    | '/app'
+  id:
+    | '__root__'
+    | '/'
+    | '/app'
+    | '/auth'
+    | '/app/incidents'
+    | '/app/map'
+    | '/app/prediction'
+    | '/app/report'
+    | '/app/routes'
+    | '/app/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  AppRoute: typeof AppRoute
+  AppRoute: typeof AppRouteWithChildren
   AuthRoute: typeof AuthRoute
 }
 
@@ -82,12 +162,74 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/app/': {
+      id: '/app/'
+      path: '/'
+      fullPath: '/app/'
+      preLoaderRoute: typeof AppIndexRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/incidents': {
+      id: '/app/incidents'
+      path: '/incidents'
+      fullPath: '/app/incidents'
+      preLoaderRoute: typeof AppIncidentsRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/map': {
+      id: '/app/map'
+      path: '/map'
+      fullPath: '/app/map'
+      preLoaderRoute: typeof AppMapRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/prediction': {
+      id: '/app/prediction'
+      path: '/prediction'
+      fullPath: '/app/prediction'
+      preLoaderRoute: typeof AppPredictionRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/report': {
+      id: '/app/report'
+      path: '/report'
+      fullPath: '/app/report'
+      preLoaderRoute: typeof AppReportRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/routes': {
+      id: '/app/routes'
+      path: '/routes'
+      fullPath: '/app/routes'
+      preLoaderRoute: typeof AppRoutesRouteImport
+      parentRoute: typeof AppRoute
+    }
   }
 }
 
+interface AppRouteChildren {
+  AppIncidentsRoute: typeof AppIncidentsRoute
+  AppMapRoute: typeof AppMapRoute
+  AppPredictionRoute: typeof AppPredictionRoute
+  AppReportRoute: typeof AppReportRoute
+  AppRoutesRoute: typeof AppRoutesRoute
+  AppIndexRoute: typeof AppIndexRoute
+}
+
+const AppRouteChildren: AppRouteChildren = {
+  AppIncidentsRoute: AppIncidentsRoute,
+  AppMapRoute: AppMapRoute,
+  AppPredictionRoute: AppPredictionRoute,
+  AppReportRoute: AppReportRoute,
+  AppRoutesRoute: AppRoutesRoute,
+  AppIndexRoute: AppIndexRoute,
+}
+
+const AppRouteWithChildren = AppRoute._addFileChildren(AppRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  AppRoute: AppRoute,
+  AppRoute: AppRouteWithChildren,
   AuthRoute: AuthRoute,
 }
 export const routeTree = rootRouteImport

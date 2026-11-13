@@ -42,3 +42,5 @@ export function congestionColor(c: number) {
 export function congestionTone(c: number) {
   return c < 0.4 ? "text-success" : c < 0.6 ? "text-warning" : c < 0.8 ? "text-danger/90" : "text-danger";
 }
+
+export const SERIES_HEX = [PALETTE.cyan, PALETTE.violet, PALETTE.amber, PALETTE.green, PALETTE.blue, PALETTE.red];

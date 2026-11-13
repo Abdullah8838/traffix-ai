@@ -53,7 +53,7 @@ export default function TrafficMapImpl({
   const highlight = useMemo(() => new Set(highlightNodes), [highlightNodes]);
 
   return (
-    <div className={`relative overflow-hidden rounded-xl border ${className ?? "h-[420px]"}`}>
+    <div className={`relative isolate overflow-hidden rounded-xl border ${className ?? "h-[420px]"}`}>
       <MapContainer center={CENTER} zoom={zoom} className="h-full w-full" scrollWheelZoom zoomControl>
         <TileLayer
           url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png"

@@ -7,7 +7,6 @@ import { TrafficMap } from "@/components/map/TrafficMap";
 import { useNetworkState } from "@/hooks/use-network";
 import { useAuth } from "@/hooks/use-auth";
 import { EMERGENCY_VEHICLES, corridorEdgeMin, junctionCorridorState, planEmergency, type EmergencyVehicle } from "@/lib/traffic/emergency";
-import { congestionMap } from "@/lib/traffic/conditions";
 import { NODE_MAP, type NodeId } from "@/lib/traffic/graph";
 import { describePath } from "@/lib/traffic/routing";
 import { PALETTE, ROUTE_COLORS } from "@/lib/palette";
@@ -52,7 +51,6 @@ function Emergency() {
   const raf = useRef(0);
 
   const plan = useMemo(() => (src && dst ? planEmergency(src, dst, vehicle, state) : null), [src, dst, vehicle, state]);
-  const cong = useMemo(() => congestionMap(state), [state]);
   const cum = useMemo(() => {
     if (!plan) return [] as number[];
     let t = 0;
@@ -141,7 +139,6 @@ function Emergency() {
           <div className="grid gap-4 xl:grid-cols-[1fr_360px]">
             <TrafficMap
               className="h-[56vh] min-h-[420px]"
-              congestion={cong}
               closedEdges={state.closedEdges}
               fitTo={[...plan.emergency.nodes, ...plan.normal.nodes]}
               routes={[

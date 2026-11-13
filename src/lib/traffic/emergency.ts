@@ -35,7 +35,7 @@ export interface EmergencyPlan {
 export function planEmergency(src: NodeId, dst: NodeId, vehicle: EmergencyVehicle, s: NetworkState): EmergencyPlan | null {
   if (src === dst) return null;
   const normal = astar(src, dst, (e) => edgeTravelMin(e, s, "car"), ASTAR_MIN_PER_KM);
-  const em = astar(src, dst, (e) => corridorEdgeMin(e, s, vehicle), 60 / 100);
+  const em = astar(src, dst, (e) => corridorEdgeMin(e, s, vehicle), 60 / 110);
   if (!normal || !em) return null;
   // Normal ETA: the same vehicle without priority (stuck in regular traffic).
   const normalEta = normal.edges.reduce((a, e) => a + edgeTravelMin(e, s, "car"), 0);

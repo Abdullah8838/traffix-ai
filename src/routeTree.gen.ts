@@ -23,6 +23,7 @@ import { Route as AppReportRouteImport } from './routes/app.report'
 import { Route as AppRoutesRouteImport } from './routes/app.routes'
 import { Route as AppSignalsRouteImport } from './routes/app.signals'
 import { Route as AppTwinRouteImport } from './routes/app.twin'
+import { Route as AppWhatifRouteImport } from './routes/app.whatif'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -94,6 +95,11 @@ const AppTwinRoute = AppTwinRouteImport.update({
   path: '/twin',
   getParentRoute: () => AppRoute,
 } as any)
+const AppWhatifRoute = AppWhatifRouteImport.update({
+  id: '/whatif',
+  path: '/whatif',
+  getParentRoute: () => AppRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -109,6 +115,7 @@ export interface FileRoutesByFullPath {
   '/app/routes': typeof AppRoutesRoute
   '/app/signals': typeof AppSignalsRoute
   '/app/twin': typeof AppTwinRoute
+  '/app/whatif': typeof AppWhatifRoute
   '/app/': typeof AppIndexRoute
 }
 export interface FileRoutesByTo {
@@ -124,6 +131,7 @@ export interface FileRoutesByTo {
   '/app/routes': typeof AppRoutesRoute
   '/app/signals': typeof AppSignalsRoute
   '/app/twin': typeof AppTwinRoute
+  '/app/whatif': typeof AppWhatifRoute
   '/app': typeof AppIndexRoute
 }
 export interface FileRoutesById {
@@ -141,6 +149,7 @@ export interface FileRoutesById {
   '/app/routes': typeof AppRoutesRoute
   '/app/signals': typeof AppSignalsRoute
   '/app/twin': typeof AppTwinRoute
+  '/app/whatif': typeof AppWhatifRoute
   '/app/': typeof AppIndexRoute
 }
 export interface FileRouteTypes {
@@ -159,6 +168,7 @@ export interface FileRouteTypes {
     | '/app/routes'
     | '/app/signals'
     | '/app/twin'
+    | '/app/whatif'
     | '/app/'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -174,6 +184,7 @@ export interface FileRouteTypes {
     | '/app/routes'
     | '/app/signals'
     | '/app/twin'
+    | '/app/whatif'
     | '/app'
   id:
     | '__root__'
@@ -190,6 +201,7 @@ export interface FileRouteTypes {
     | '/app/routes'
     | '/app/signals'
     | '/app/twin'
+    | '/app/whatif'
     | '/app/'
   fileRoutesById: FileRoutesById
 }
@@ -299,6 +311,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppTwinRouteImport
       parentRoute: typeof AppRoute
     }
+    '/app/whatif': {
+      id: '/app/whatif'
+      path: '/whatif'
+      fullPath: '/app/whatif'
+      preLoaderRoute: typeof AppWhatifRouteImport
+      parentRoute: typeof AppRoute
+    }
   }
 }
 
@@ -313,6 +332,7 @@ interface AppRouteChildren {
   AppRoutesRoute: typeof AppRoutesRoute
   AppSignalsRoute: typeof AppSignalsRoute
   AppTwinRoute: typeof AppTwinRoute
+  AppWhatifRoute: typeof AppWhatifRoute
   AppIndexRoute: typeof AppIndexRoute
 }
 
@@ -327,6 +347,7 @@ const AppRouteChildren: AppRouteChildren = {
   AppRoutesRoute: AppRoutesRoute,
   AppSignalsRoute: AppSignalsRoute,
   AppTwinRoute: AppTwinRoute,
+  AppWhatifRoute: AppWhatifRoute,
   AppIndexRoute: AppIndexRoute,
 }
 

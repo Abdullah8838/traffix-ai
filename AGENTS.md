@@ -28,3 +28,14 @@ use the editor.
   own key and store it in Secrets.
 - **Secrets.** Lovable manages them. Do not put secret values in the repo.
 <!-- LOVABLE:END -->
+
+## Project rules (TRAFFIX AI)
+
+- Traffic logic lives in pure TypeScript under `src/lib/traffic/` (no React/three imports) with tests in `traffic.test.ts`; pages and scenes only render its output, so algorithms stay testable.
+- The road graph in `src/lib/traffic/graph.ts` mirrors the seeded `roads` table codes (`e01`…); keep both in sync when adding roads.
+- All `/app/*` pages are client-only (`ssr: false` on `src/routes/app.tsx`) because they depend on browser storage, Leaflet and WebGL.
+- Leaflet and the R3F city are loaded via `React.lazy` behind `ClientOnly` (`TrafficMap`, `CityScene`) so they never evaluate during SSR of the landing page.
+- Demo simulation settings (clock, demand, weather, local closures) live in `simStore` (localStorage); incidents and closures come from the database and merge in `useNetworkState`.
+- Hex colours for WebGL/Leaflet come from `src/lib/palette.ts`, which mirrors the CSS tokens; components use Tailwind tokens.
+- Admin permissions are enforced by RLS via `has_role`; the first signed-up account receives the admin role through the `handle_new_user` trigger.
+- `exactOptionalPropertyTypes` and `noUncheckedIndexedAccess` are off: graph/instanced-mesh code indexes arrays heavily and optional props pass `undefined` through.

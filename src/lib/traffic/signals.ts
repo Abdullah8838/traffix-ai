@@ -194,7 +194,7 @@ export function run(cfg: SignalConfig, seconds: number): SignalSim {
 
 /** Arrival rates for a density level 1..10 with a realistic directional imbalance. */
 export function ratesForDensity(level: number): Record<Dir, number> {
-  const base = 3 + level * 2.2;
+  const base = 2 + level * 1.3;
   return { N: +(base * 1.45).toFixed(1), S: +(base * 1.15).toFixed(1), E: +(base * 0.7).toFixed(1), W: +(base * 0.45).toFixed(1) };
 }
 

@@ -402,8 +402,8 @@ function Sim(props: CitySceneProps & { onFirstFrame: () => void }) {
 
     if (mode === "showcase") {
       const t = clock.elapsedTime * 0.05;
-      camera.position.set(Math.sin(t) * 58, 30 + Math.sin(t * 2) * 4, Math.cos(t) * 58);
-      camera.lookAt(0, 0, 0);
+      camera.position.set(Math.sin(t) * 46, 17 + Math.sin(t * 2) * 3, Math.cos(t) * 46);
+      camera.lookAt(0, 3, 0);
     }
     if (!first.current) {
       first.current = true;

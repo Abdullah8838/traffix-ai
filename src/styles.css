@@ -207,7 +207,10 @@
   animation: shimmer 6s linear infinite;
 }
 
-/* Leaflet dark integration */
+/* Leaflet dark integration: OSM tiles re-tinted to the midnight palette */
+.osm-dark-tiles {
+  filter: invert(1) hue-rotate(195deg) brightness(0.78) contrast(0.92) saturate(0.55);
+}
 .leaflet-container {
   background: var(--ink);
   font-family: var(--font-sans);

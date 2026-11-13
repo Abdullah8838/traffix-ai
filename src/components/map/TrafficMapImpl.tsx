@@ -27,6 +27,10 @@ function Fit({ fitTo, focus }: Pick<TrafficMapProps, "fitTo" | "focus">) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [key, map]);
   useEffect(() => {
+    if (!fitTo || fitTo.length < 2) map.fitBounds(NODES.map((n) => [n.lat, n.lng] as [number, number]), { padding: [24, 24] });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [map]);
+  useEffect(() => {
     if (focus) map.flyTo([focus.lat, focus.lng], focus.zoom ?? 14, { duration: 0.8 });
   }, [focus, map]);
   return null;
@@ -56,10 +60,10 @@ export default function TrafficMapImpl({
     <div className={`relative isolate overflow-hidden rounded-xl border ${className ?? "h-[420px]"}`}>
       <MapContainer center={CENTER} zoom={zoom} className="h-full w-full" scrollWheelZoom zoomControl>
         <TileLayer
-          url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png"
-          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/">CARTO</a>'
-          subdomains="abcd"
+          url="https://tile.openstreetmap.org/{z}/{x}/{y}.png"
+          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           maxZoom={19}
+          className="osm-dark-tiles"
           eventHandlers={{ tileerror: () => setTilesDown(true) }}
         />
         <ClickHandler onMapClick={onMapClick} />

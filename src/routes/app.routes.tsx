@@ -41,7 +41,7 @@ const LABELS: Record<RouteKind, { title: string; subtitle: string }> = {
 function RoutePlanner() {
   const { state } = useNetworkState();
   const { user } = useAuth();
-  const [src, setSrc] = useState<NodeId | null>("EC");
+  const [src, setSrc] = useState<NodeId | null>("BEL");
   const [dst, setDst] = useState<NodeId | null>("HEB");
   const [vehicle, setVehicle] = useState<VehicleType>("car");
   const [active, setActive] = useState<RouteKind>("ai");
@@ -125,7 +125,7 @@ function RoutePlanner() {
                   <div className="rounded-lg border p-2"><div className="font-display text-lg font-bold">{algo.dijkstraVisited}</div>Dijkstra (time)</div>
                   <div className="rounded-lg border border-cyan/40 p-2"><div className="font-display text-lg font-bold text-cyan">{algo.astarVisited}</div>A* (time)</div>
                 </div>
-                <p className="mt-2 text-[11px] text-muted-foreground">Junctions expanded. A* uses a straight-line time heuristic, so it explores fewer junctions for the same optimal answer. {plan.candidates.length} candidate routes scored.</p>
+                <p className="mt-2 text-[11px] text-muted-foreground">Junctions expanded by each search. A* is guided by an admissible straight-line time heuristic and returns the same optimal travel time as Dijkstra. {plan.candidates.length} candidate routes scored.</p>
               </Panel>
             )}
           </div>

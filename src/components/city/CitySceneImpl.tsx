@@ -1,4 +1,4 @@
-import { useEffect, useLayoutEffect, useMemo, useRef, type MutableRefObject } from "react";
+import { memo, useEffect, useLayoutEffect, useMemo, useRef, type MutableRefObject } from "react";
 import { Canvas, useFrame, type ThreeEvent } from "@react-three/fiber";
 import { Environment, Html, Lightformer, OrbitControls } from "@react-three/drei";
 import * as THREE from "three";
@@ -402,8 +402,8 @@ function Sim(props: CitySceneProps & { onFirstFrame: () => void }) {
 
     if (mode === "showcase") {
       const t = clock.elapsedTime * 0.05;
-      camera.position.set(Math.sin(t) * 58, 30 + Math.sin(t * 2) * 4, Math.cos(t) * 58);
-      camera.lookAt(0, 0, 0);
+      camera.position.set(Math.sin(t) * 46, 17 + Math.sin(t * 2) * 3, Math.cos(t) * 46);
+      camera.lookAt(0, 3, 0);
     }
     if (!first.current) {
       first.current = true;
@@ -444,13 +444,13 @@ function Sim(props: CitySceneProps & { onFirstFrame: () => void }) {
   );
 }
 
-function Labels({ selectedNode }: { selectedNode?: NodeId | null }) {
+const Labels = memo(function Labels({ selectedNode }: { selectedNode?: NodeId | null }) {
   return (
     <group>
       {NODES.filter((n) => n.kind !== "junction" || n.id === selectedNode || ["SB", "HEB", "KRP"].includes(n.id)).map((n) => {
         const [x, z] = NODE_XZ[n.id];
         return (
-          <Html key={n.id} position={[x, 2.2, z]} center distanceFactor={60} zIndexRange={[10, 0]} style={{ pointerEvents: "none" }}>
+          <Html key={n.id} position={[x, 2.2, z]} center distanceFactor={60} zIndexRange={[10, 0]} style={HTML_STYLE}>
             <div className={`whitespace-nowrap rounded-md px-1.5 py-0.5 text-[11px] font-semibold glass-strong ${n.id === selectedNode ? "text-cyan" : "text-foreground"}`}>
               {NODE_MAP[n.id].name}
             </div>
@@ -459,7 +459,9 @@ function Labels({ selectedNode }: { selectedNode?: NodeId | null }) {
       })}
     </group>
   );
-}
+});
+
+const HTML_STYLE = { pointerEvents: "none" } as const;
 
 function DataRings() {
   const g = useRef<THREE.Group>(null);

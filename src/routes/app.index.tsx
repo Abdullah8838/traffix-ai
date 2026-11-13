@@ -45,7 +45,7 @@ function Dashboard() {
   const { user } = useAuth();
   const cong = useMemo(() => congestionMap(state), [state]);
   const kpis = useMemo(() => networkKpis(state), [state]);
-  const warnings = useMemo(() => earlyWarnings(state, 5), [state]);
+  const warnings = useMemo(() => earlyWarnings(state, 4), [state]);
   const profile = useMemo(() => dailyProfileSeries(state.dayOfWeek), [state.dayOfWeek]);
   const trend = useMemo(() => hotspotTrend(state), [state]);
   const efficiency = useMemo(() => routeEfficiencySeries(state), [state]);
@@ -83,7 +83,7 @@ function Dashboard() {
 
       <div className="grid gap-4 xl:grid-cols-3">
         <Panel title="Traffic map preview" icon={RouteIcon} className="xl:col-span-2" actions={<Button asChild size="sm" variant="ghost"><Link to="/app/map">Open map</Link></Button>}>
-          <TrafficMap className="h-[340px]" congestion={cong} closedEdges={state.closedEdges} markers={active.map((i) => ({ id: i.id, lat: i.lat, lng: i.lng, color: PALETTE.red, label: INCIDENT_LABEL[i.type as IncidentType], detail: i.location_name }))} zoom={11} />
+          <TrafficMap className="h-[460px]" congestion={cong} closedEdges={state.closedEdges} markers={active.map((i) => ({ id: i.id, lat: i.lat, lng: i.lng, color: PALETTE.red, label: INCIDENT_LABEL[i.type as IncidentType], detail: i.location_name }))} />
         </Panel>
         <Panel title="AI recommendations" icon={BrainCircuit}>
           {warnings.length === 0 ? (

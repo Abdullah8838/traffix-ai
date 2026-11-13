@@ -78,7 +78,7 @@ function AuthPage() {
   };
 
   return (
-    <div className="grid min-h-screen place-items-center bg-background bg-hero px-4 grid-lines">
+    <div className="grid min-h-screen place-items-center bg-background bg-hero px-4">
       <div className="w-full max-w-sm">
         <Link to="/" className="mb-8 flex justify-center">
           <Logo />

@@ -104,7 +104,7 @@ export function IncidentTable({ adminMode = false }: { adminMode?: boolean }) {
 
   const act = async (r: IncidentRow, next: string) => {
     const { error: e } = await supabase.from("incidents").update({ status: next, resolved_at: next === "resolved" ? new Date().toISOString() : null }).eq("id", r.id);
-    if (e) return toast.error("Update failed", { description: e.message });
+    if (e) { toast.error("Update failed", { description: e.message }); return; }
     toast.success(`Incident marked ${next}`);
     setOpen(null);
     qc.invalidateQueries({ queryKey: ["incidents"] });

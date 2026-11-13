@@ -47,7 +47,7 @@ function Twin() {
   }, []);
 
   const cong = useMemo(() => congestionMap(state), [state]);
-  const active = incidents.filter((i) => i.status === "pending" || i.status === "verified").map((i) => ({ id: i.id, lat: i.lat, lng: i.lng, severity: Number(i.estimated_severity ?? i.severity) }));
+  const active = useMemo(() => incidents.filter((i) => i.status === "pending" || i.status === "verified").map((i) => ({ id: i.id, lat: i.lat, lng: i.lng, severity: Number(i.estimated_severity ?? i.severity) })), [incidents]);
   const sel = edge ? EDGE_MAP[edge] : null;
 
   const dispatch = () => {

@@ -56,7 +56,7 @@ function Optimize() {
   return (
     <div className="space-y-4">
       <PageHeader eyebrow="Mandatory feature 5" title="Multi-Factor Route Optimization" description="Every candidate route is scored 0–100 per factor, then combined with your priority weights. Change the sliders to see the ranking update instantly." actions={<SimTag>Transparent scoring</SimTag>} />
-      <div className="grid gap-4 xl:grid-cols-[340px_1fr]">
+      <div className="grid gap-4 xl:grid-cols-[320px_minmax(0,1fr)]">
         <div className="space-y-4">
           <Panel title="Journey">
             <div className="grid gap-3">
@@ -81,7 +81,7 @@ function Optimize() {
         {!plan ? (
           <EmptyState title="No routes" body="Choose two different, connected locations." />
         ) : (
-          <div className="space-y-4">
+          <div className="min-w-0 space-y-4">
             <TrafficMap
               className="h-[40vh] min-h-[320px]"
               congestion={cong}
@@ -90,7 +90,7 @@ function Optimize() {
               fitTo={ranked[0]?.nodes}
               routes={ranked.map((r, i) => ({ id: r.key, nodes: r.nodes, color: SERIES_HEX[i % SERIES_HEX.length], weight: r.key === activeKey ? 8 : 4, opacity: r.key === activeKey ? 1 : 0.5, onClick: () => setSel(r.key), label: `#${i + 1} · score ${r.score}` })).reverse()}
             />
-            <div className="grid gap-4 lg:grid-cols-[1fr_340px]">
+            <div className="grid gap-4 2xl:grid-cols-[minmax(0,1fr)_340px]">
               <Panel title="Route comparison" icon={Trophy} bodyClassName="p-0">
                 <div className="overflow-x-auto">
                   <table className="w-full text-sm">

@@ -146,9 +146,9 @@ function WhatIf() {
                 <Panel title="Affected roads" bodyClassName="p-0">
                   {r.affected.length === 0 ? <p className="p-4 text-sm text-muted-foreground">No road changed by more than 3 points.</p> : (
                     <table className="w-full text-sm">
-                      <thead className="text-left text-xs text-muted-foreground"><tr className="border-b"><th className="px-4 py-2">Road</th><th>Before</th><th>After</th><th>Δ</th></tr></thead>
+                      <thead className="text-left text-xs text-muted-foreground"><tr className="border-b"><th className="px-4 py-2">Road</th><th className="px-2">Before</th><th className="px-2">After</th><th className="px-2 pr-4">Δ</th></tr></thead>
                       <tbody>{r.affected.slice(0, 10).map((a) => (
-                        <tr key={a.edge.id} className="border-b last:border-0"><td className="px-4 py-1.5">{a.edge.name}</td><td className="tabular">{Math.round(a.before * 100)}%</td><td className="tabular">{Math.round(a.after * 100)}%</td><td className={`tabular font-semibold ${a.after > a.before ? "text-danger" : "text-success"}`}>{a.after > a.before ? "+" : ""}{Math.round((a.after - a.before) * 100)}</td></tr>
+                        <tr key={a.edge.id} className="border-b last:border-0"><td className="px-4 py-1.5">{a.edge.name}</td><td className="px-2 tabular">{Math.round(a.before * 100)}%</td><td className="px-2 tabular">{Math.round(a.after * 100)}%</td><td className={`px-2 pr-4 tabular font-semibold ${a.after > a.before ? "text-danger" : "text-success"}`}>{a.after > a.before ? "+" : ""}{Math.round((a.after - a.before) * 100)}</td></tr>
                       ))}</tbody>
                     </table>
                   )}

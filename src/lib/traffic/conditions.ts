@@ -77,7 +77,7 @@ export function congestion(edge: RoadEdge, s: NetworkState): number {
   if (s.closedEdges.has(edge.id)) return 1;
   const idx = edgeIndex[edge.id] ?? 0;
   const profile = demandProfile(s.minutesOfDay, s.dayOfWeek);
-  let c = edge.baseLoad * profile * 1.3 * s.densityMultiplier * WEATHER_FACTOR[s.weather];
+  let c = edge.baseLoad * profile * 1.12 * s.densityMultiplier * WEATHER_FACTOR[s.weather];
   c += 0.05 * Math.sin(s.minutesOfDay / 37 + idx * 1.7);
   for (const inc of s.incidents) {
     if (inc.edgeId === edge.id) c += incidentWeight(inc);

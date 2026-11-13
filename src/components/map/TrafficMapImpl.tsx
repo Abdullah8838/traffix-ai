@@ -20,16 +20,15 @@ function Fit({ fitTo, focus }: Pick<TrafficMapProps, "fitTo" | "focus">) {
   const map = useMap();
   const key = fitTo?.join(",");
   useEffect(() => {
-    if (fitTo && fitTo.length > 1) {
-      const pts = fitTo.map((n) => [NODE_MAP[n].lat, NODE_MAP[n].lng] as [number, number]);
-      map.fitBounds(pts, { padding: [40, 40], maxZoom: 14 });
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    const ids = fitTo && fitTo.length > 1 ? fitTo : NODES.map((n) => n.id);
+    const pts = ids.map((n) => [NODE_MAP[n].lat, NODE_MAP[n].lng] as [number, number]);
+    // Wait a tick so the lazily mounted container has its final size.
+    const t = setTimeout(() => {
+      map.invalidateSize();
+      map.fitBounds(pts, { padding: [36, 36], maxZoom: 14 });
+    }, 80);
+    return () => clearTimeout(t);
   }, [key, map]);
-  useEffect(() => {
-    if (!fitTo || fitTo.length < 2) map.fitBounds(NODES.map((n) => [n.lat, n.lng] as [number, number]), { padding: [24, 24] });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [map]);
   useEffect(() => {
     if (focus) map.flyTo([focus.lat, focus.lng], focus.zoom ?? 14, { duration: 0.8 });
   }, [focus, map]);

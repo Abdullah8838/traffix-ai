@@ -13,6 +13,7 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as AppRouteImport } from './routes/app'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as AppIndexRouteImport } from './routes/app.index'
+import { Route as AppEmergencyRouteImport } from './routes/app.emergency'
 import { Route as AppImpactRouteImport } from './routes/app.impact'
 import { Route as AppIncidentsRouteImport } from './routes/app.incidents'
 import { Route as AppMapRouteImport } from './routes/app.map'
@@ -39,6 +40,11 @@ const AuthRoute = AuthRouteImport.update({
 const AppIndexRoute = AppIndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppEmergencyRoute = AppEmergencyRouteImport.update({
+  id: '/emergency',
+  path: '/emergency',
   getParentRoute: () => AppRoute,
 } as any)
 const AppImpactRoute = AppImpactRouteImport.update({
@@ -81,6 +87,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/app': typeof AppRouteWithChildren
   '/auth': typeof AuthRoute
+  '/app/emergency': typeof AppEmergencyRoute
   '/app/impact': typeof AppImpactRoute
   '/app/incidents': typeof AppIncidentsRoute
   '/app/map': typeof AppMapRoute
@@ -93,6 +100,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
+  '/app/emergency': typeof AppEmergencyRoute
   '/app/impact': typeof AppImpactRoute
   '/app/incidents': typeof AppIncidentsRoute
   '/app/map': typeof AppMapRoute
@@ -107,6 +115,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/app': typeof AppRouteWithChildren
   '/auth': typeof AuthRoute
+  '/app/emergency': typeof AppEmergencyRoute
   '/app/impact': typeof AppImpactRoute
   '/app/incidents': typeof AppIncidentsRoute
   '/app/map': typeof AppMapRoute
@@ -122,6 +131,7 @@ export interface FileRouteTypes {
     | '/'
     | '/app'
     | '/auth'
+    | '/app/emergency'
     | '/app/impact'
     | '/app/incidents'
     | '/app/map'
@@ -134,6 +144,7 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/auth'
+    | '/app/emergency'
     | '/app/impact'
     | '/app/incidents'
     | '/app/map'
@@ -147,6 +158,7 @@ export interface FileRouteTypes {
     | '/'
     | '/app'
     | '/auth'
+    | '/app/emergency'
     | '/app/impact'
     | '/app/incidents'
     | '/app/map'
@@ -191,6 +203,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/app/'
       preLoaderRoute: typeof AppIndexRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/emergency': {
+      id: '/app/emergency'
+      path: '/emergency'
+      fullPath: '/app/emergency'
+      preLoaderRoute: typeof AppEmergencyRouteImport
       parentRoute: typeof AppRoute
     }
     '/app/impact': {
@@ -246,6 +265,7 @@ declare module '@tanstack/react-router' {
 }
 
 interface AppRouteChildren {
+  AppEmergencyRoute: typeof AppEmergencyRoute
   AppImpactRoute: typeof AppImpactRoute
   AppIncidentsRoute: typeof AppIncidentsRoute
   AppMapRoute: typeof AppMapRoute
@@ -257,6 +277,7 @@ interface AppRouteChildren {
 }
 
 const AppRouteChildren: AppRouteChildren = {
+  AppEmergencyRoute: AppEmergencyRoute,
   AppImpactRoute: AppImpactRoute,
   AppIncidentsRoute: AppIncidentsRoute,
   AppMapRoute: AppMapRoute,

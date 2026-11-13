@@ -13,6 +13,8 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as AppRouteImport } from './routes/app'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as AppIndexRouteImport } from './routes/app.index'
+import { Route as AppAdminRouteImport } from './routes/app.admin'
+import { Route as AppAnalyticsRouteImport } from './routes/app.analytics'
 import { Route as AppEmergencyRouteImport } from './routes/app.emergency'
 import { Route as AppImpactRouteImport } from './routes/app.impact'
 import { Route as AppIncidentsRouteImport } from './routes/app.incidents'
@@ -21,6 +23,7 @@ import { Route as AppOptimizeRouteImport } from './routes/app.optimize'
 import { Route as AppPredictionRouteImport } from './routes/app.prediction'
 import { Route as AppReportRouteImport } from './routes/app.report'
 import { Route as AppRoutesRouteImport } from './routes/app.routes'
+import { Route as AppSettingsRouteImport } from './routes/app.settings'
 import { Route as AppSignalsRouteImport } from './routes/app.signals'
 import { Route as AppTwinRouteImport } from './routes/app.twin'
 import { Route as AppWhatifRouteImport } from './routes/app.whatif'
@@ -43,6 +46,16 @@ const AuthRoute = AuthRouteImport.update({
 const AppIndexRoute = AppIndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppAdminRoute = AppAdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppAnalyticsRoute = AppAnalyticsRouteImport.update({
+  id: '/analytics',
+  path: '/analytics',
   getParentRoute: () => AppRoute,
 } as any)
 const AppEmergencyRoute = AppEmergencyRouteImport.update({
@@ -85,6 +98,11 @@ const AppRoutesRoute = AppRoutesRouteImport.update({
   path: '/routes',
   getParentRoute: () => AppRoute,
 } as any)
+const AppSettingsRoute = AppSettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
+  getParentRoute: () => AppRoute,
+} as any)
 const AppSignalsRoute = AppSignalsRouteImport.update({
   id: '/signals',
   path: '/signals',
@@ -105,6 +123,8 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/app': typeof AppRouteWithChildren
   '/auth': typeof AuthRoute
+  '/app/admin': typeof AppAdminRoute
+  '/app/analytics': typeof AppAnalyticsRoute
   '/app/emergency': typeof AppEmergencyRoute
   '/app/impact': typeof AppImpactRoute
   '/app/incidents': typeof AppIncidentsRoute
@@ -113,6 +133,7 @@ export interface FileRoutesByFullPath {
   '/app/prediction': typeof AppPredictionRoute
   '/app/report': typeof AppReportRoute
   '/app/routes': typeof AppRoutesRoute
+  '/app/settings': typeof AppSettingsRoute
   '/app/signals': typeof AppSignalsRoute
   '/app/twin': typeof AppTwinRoute
   '/app/whatif': typeof AppWhatifRoute
@@ -121,6 +142,8 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
+  '/app/admin': typeof AppAdminRoute
+  '/app/analytics': typeof AppAnalyticsRoute
   '/app/emergency': typeof AppEmergencyRoute
   '/app/impact': typeof AppImpactRoute
   '/app/incidents': typeof AppIncidentsRoute
@@ -129,6 +152,7 @@ export interface FileRoutesByTo {
   '/app/prediction': typeof AppPredictionRoute
   '/app/report': typeof AppReportRoute
   '/app/routes': typeof AppRoutesRoute
+  '/app/settings': typeof AppSettingsRoute
   '/app/signals': typeof AppSignalsRoute
   '/app/twin': typeof AppTwinRoute
   '/app/whatif': typeof AppWhatifRoute
@@ -139,6 +163,8 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/app': typeof AppRouteWithChildren
   '/auth': typeof AuthRoute
+  '/app/admin': typeof AppAdminRoute
+  '/app/analytics': typeof AppAnalyticsRoute
   '/app/emergency': typeof AppEmergencyRoute
   '/app/impact': typeof AppImpactRoute
   '/app/incidents': typeof AppIncidentsRoute
@@ -147,6 +173,7 @@ export interface FileRoutesById {
   '/app/prediction': typeof AppPredictionRoute
   '/app/report': typeof AppReportRoute
   '/app/routes': typeof AppRoutesRoute
+  '/app/settings': typeof AppSettingsRoute
   '/app/signals': typeof AppSignalsRoute
   '/app/twin': typeof AppTwinRoute
   '/app/whatif': typeof AppWhatifRoute
@@ -158,6 +185,8 @@ export interface FileRouteTypes {
     | '/'
     | '/app'
     | '/auth'
+    | '/app/admin'
+    | '/app/analytics'
     | '/app/emergency'
     | '/app/impact'
     | '/app/incidents'
@@ -166,6 +195,7 @@ export interface FileRouteTypes {
     | '/app/prediction'
     | '/app/report'
     | '/app/routes'
+    | '/app/settings'
     | '/app/signals'
     | '/app/twin'
     | '/app/whatif'
@@ -174,6 +204,8 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/auth'
+    | '/app/admin'
+    | '/app/analytics'
     | '/app/emergency'
     | '/app/impact'
     | '/app/incidents'
@@ -182,6 +214,7 @@ export interface FileRouteTypes {
     | '/app/prediction'
     | '/app/report'
     | '/app/routes'
+    | '/app/settings'
     | '/app/signals'
     | '/app/twin'
     | '/app/whatif'
@@ -191,6 +224,8 @@ export interface FileRouteTypes {
     | '/'
     | '/app'
     | '/auth'
+    | '/app/admin'
+    | '/app/analytics'
     | '/app/emergency'
     | '/app/impact'
     | '/app/incidents'
@@ -199,6 +234,7 @@ export interface FileRouteTypes {
     | '/app/prediction'
     | '/app/report'
     | '/app/routes'
+    | '/app/settings'
     | '/app/signals'
     | '/app/twin'
     | '/app/whatif'
@@ -239,6 +275,20 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/app/'
       preLoaderRoute: typeof AppIndexRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/admin': {
+      id: '/app/admin'
+      path: '/admin'
+      fullPath: '/app/admin'
+      preLoaderRoute: typeof AppAdminRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/analytics': {
+      id: '/app/analytics'
+      path: '/analytics'
+      fullPath: '/app/analytics'
+      preLoaderRoute: typeof AppAnalyticsRouteImport
       parentRoute: typeof AppRoute
     }
     '/app/emergency': {
@@ -297,6 +347,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppRoutesRouteImport
       parentRoute: typeof AppRoute
     }
+    '/app/settings': {
+      id: '/app/settings'
+      path: '/settings'
+      fullPath: '/app/settings'
+      preLoaderRoute: typeof AppSettingsRouteImport
+      parentRoute: typeof AppRoute
+    }
     '/app/signals': {
       id: '/app/signals'
       path: '/signals'
@@ -322,6 +379,8 @@ declare module '@tanstack/react-router' {
 }
 
 interface AppRouteChildren {
+  AppAdminRoute: typeof AppAdminRoute
+  AppAnalyticsRoute: typeof AppAnalyticsRoute
   AppEmergencyRoute: typeof AppEmergencyRoute
   AppImpactRoute: typeof AppImpactRoute
   AppIncidentsRoute: typeof AppIncidentsRoute
@@ -330,6 +389,7 @@ interface AppRouteChildren {
   AppPredictionRoute: typeof AppPredictionRoute
   AppReportRoute: typeof AppReportRoute
   AppRoutesRoute: typeof AppRoutesRoute
+  AppSettingsRoute: typeof AppSettingsRoute
   AppSignalsRoute: typeof AppSignalsRoute
   AppTwinRoute: typeof AppTwinRoute
   AppWhatifRoute: typeof AppWhatifRoute
@@ -337,6 +397,8 @@ interface AppRouteChildren {
 }
 
 const AppRouteChildren: AppRouteChildren = {
+  AppAdminRoute: AppAdminRoute,
+  AppAnalyticsRoute: AppAnalyticsRoute,
   AppEmergencyRoute: AppEmergencyRoute,
   AppImpactRoute: AppImpactRoute,
   AppIncidentsRoute: AppIncidentsRoute,
@@ -345,6 +407,7 @@ const AppRouteChildren: AppRouteChildren = {
   AppPredictionRoute: AppPredictionRoute,
   AppReportRoute: AppReportRoute,
   AppRoutesRoute: AppRoutesRoute,
+  AppSettingsRoute: AppSettingsRoute,
   AppSignalsRoute: AppSignalsRoute,
   AppTwinRoute: AppTwinRoute,
   AppWhatifRoute: AppWhatifRoute,

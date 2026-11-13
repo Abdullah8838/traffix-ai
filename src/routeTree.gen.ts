@@ -15,6 +15,7 @@ import { Route as AuthRouteImport } from './routes/auth'
 import { Route as AppIndexRouteImport } from './routes/app.index'
 import { Route as AppMapRouteImport } from './routes/app.map'
 import { Route as AppPredictionRouteImport } from './routes/app.prediction'
+import { Route as AppReportRouteImport } from './routes/app.report'
 import { Route as AppRoutesRouteImport } from './routes/app.routes'
 
 const IndexRoute = IndexRouteImport.update({
@@ -47,6 +48,11 @@ const AppPredictionRoute = AppPredictionRouteImport.update({
   path: '/prediction',
   getParentRoute: () => AppRoute,
 } as any)
+const AppReportRoute = AppReportRouteImport.update({
+  id: '/report',
+  path: '/report',
+  getParentRoute: () => AppRoute,
+} as any)
 const AppRoutesRoute = AppRoutesRouteImport.update({
   id: '/routes',
   path: '/routes',
@@ -59,6 +65,7 @@ export interface FileRoutesByFullPath {
   '/auth': typeof AuthRoute
   '/app/map': typeof AppMapRoute
   '/app/prediction': typeof AppPredictionRoute
+  '/app/report': typeof AppReportRoute
   '/app/routes': typeof AppRoutesRoute
   '/app/': typeof AppIndexRoute
 }
@@ -67,6 +74,7 @@ export interface FileRoutesByTo {
   '/auth': typeof AuthRoute
   '/app/map': typeof AppMapRoute
   '/app/prediction': typeof AppPredictionRoute
+  '/app/report': typeof AppReportRoute
   '/app/routes': typeof AppRoutesRoute
   '/app': typeof AppIndexRoute
 }
@@ -77,6 +85,7 @@ export interface FileRoutesById {
   '/auth': typeof AuthRoute
   '/app/map': typeof AppMapRoute
   '/app/prediction': typeof AppPredictionRoute
+  '/app/report': typeof AppReportRoute
   '/app/routes': typeof AppRoutesRoute
   '/app/': typeof AppIndexRoute
 }
@@ -88,10 +97,18 @@ export interface FileRouteTypes {
     | '/auth'
     | '/app/map'
     | '/app/prediction'
+    | '/app/report'
     | '/app/routes'
     | '/app/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/auth' | '/app/map' | '/app/prediction' | '/app/routes' | '/app'
+  to:
+    | '/'
+    | '/auth'
+    | '/app/map'
+    | '/app/prediction'
+    | '/app/report'
+    | '/app/routes'
+    | '/app'
   id:
     | '__root__'
     | '/'
@@ -99,6 +116,7 @@ export interface FileRouteTypes {
     | '/auth'
     | '/app/map'
     | '/app/prediction'
+    | '/app/report'
     | '/app/routes'
     | '/app/'
   fileRoutesById: FileRoutesById
@@ -153,6 +171,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppPredictionRouteImport
       parentRoute: typeof AppRoute
     }
+    '/app/report': {
+      id: '/app/report'
+      path: '/report'
+      fullPath: '/app/report'
+      preLoaderRoute: typeof AppReportRouteImport
+      parentRoute: typeof AppRoute
+    }
     '/app/routes': {
       id: '/app/routes'
       path: '/routes'
@@ -166,6 +191,7 @@ declare module '@tanstack/react-router' {
 interface AppRouteChildren {
   AppMapRoute: typeof AppMapRoute
   AppPredictionRoute: typeof AppPredictionRoute
+  AppReportRoute: typeof AppReportRoute
   AppRoutesRoute: typeof AppRoutesRoute
   AppIndexRoute: typeof AppIndexRoute
 }
@@ -173,6 +199,7 @@ interface AppRouteChildren {
 const AppRouteChildren: AppRouteChildren = {
   AppMapRoute: AppMapRoute,
   AppPredictionRoute: AppPredictionRoute,
+  AppReportRoute: AppReportRoute,
   AppRoutesRoute: AppRoutesRoute,
   AppIndexRoute: AppIndexRoute,
 }

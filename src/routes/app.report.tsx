@@ -62,8 +62,8 @@ function Report() {
 
   const submit = async () => {
     if (!user) return;
-    if (description.trim().length < 5) return toast.error("Add a short description (at least 5 characters)");
-    if (file && file.size > 5 * 1024 * 1024) return toast.error("Image must be under 5 MB");
+    if (description.trim().length < 5) { toast.error("Add a short description (at least 5 characters)"); return; }
+    if (file && file.size > 5 * 1024 * 1024) { toast.error("Image must be under 5 MB"); return; }
     setBusy(true);
     try {
       if (dup) {

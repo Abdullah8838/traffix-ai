@@ -53,7 +53,7 @@ function Twin() {
   const dispatch = () => {
     if (!from || !to) return;
     const p = planEmergency(from, to, "ambulance", state);
-    if (!p) return toast.error("No route for the ambulance");
+    if (!p) { toast.error("No route for the ambulance"); return; }
     setAmb({ route: p.emergency.nodes, key: Date.now() });
     setRunning(true);
     toast.success("Ambulance dispatched", { description: `Signals ahead switch green as it approaches (simulated). ETA ${p.emergency.etaMin} min.` });

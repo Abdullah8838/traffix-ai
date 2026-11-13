@@ -69,7 +69,7 @@ function WhatIf() {
       params: result.sc as unknown as Json,
       results: { before: result.r.before.odTotalMin, after: result.r.after.odTotalMin, avgBefore: result.r.before.avgCongestion, avgAfter: result.r.after.avgCongestion, verdict: result.r.verdict } as Json,
     });
-    if (error) return toast.error("Couldn't save scenario", { description: error.message });
+    if (error) { toast.error("Couldn't save scenario", { description: error.message }); return; }
     toast.success("Scenario saved");
     setName("");
     qc.invalidateQueries({ queryKey: ["scenarios"] });

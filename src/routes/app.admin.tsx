@@ -40,19 +40,19 @@ function Closures() {
   const add = async () => {
     if (!road) return;
     const { error } = await supabase.from("road_closures").insert({ road_code: road, reason: reason.slice(0, 300), created_by: user?.id });
-    if (error) return toast.error("Couldn't add closure", { description: error.message });
+    if (error) { toast.error("Couldn't add closure", { description: error.message }); return; }
     toast.success("Closure added — routing now avoids this road");
     setReason("");
     refresh();
   };
   const end = async (id: string, active: boolean) => {
     const { error } = await supabase.from("road_closures").update({ active: !active, ended_at: active ? new Date().toISOString() : null }).eq("id", id);
-    if (error) return toast.error(error.message);
+    if (error) { toast.error(error.message); return; }
     refresh();
   };
   const del = async (id: string) => {
     const { error } = await supabase.from("road_closures").delete().eq("id", id);
-    if (error) return toast.error(error.message);
+    if (error) { toast.error(error.message); return; }
     refresh();
   };
   return (
@@ -106,7 +106,7 @@ function Duplicates() {
   const qc = useQueryClient();
   const reject = async (id: string) => {
     const { error } = await supabase.from("incidents").update({ status: "rejected" }).eq("id", id);
-    if (error) return toast.error(error.message);
+    if (error) { toast.error(error.message); return; }
     toast.success("Duplicate rejected");
     qc.invalidateQueries({ queryKey: ["incidents"] });
   };
@@ -142,7 +142,7 @@ function Predictions() {
     const ids = (q.data ?? []).map((r) => r.id);
     if (!ids.length) return;
     const { error } = await supabase.from("congestion_predictions").delete().in("id", ids);
-    if (error) return toast.error(error.message);
+    if (error) { toast.error(error.message); return; }
     qc.invalidateQueries({ queryKey: ["predictions-admin"] });
   };
   return (
@@ -181,7 +181,7 @@ function Simulations() {
   const qc = useQueryClient();
   const del = async (id: string) => {
     const { error } = await supabase.from("simulation_scenarios").delete().eq("id", id);
-    if (error) return toast.error(error.message);
+    if (error) { toast.error(error.message); return; }
     qc.invalidateQueries({ queryKey: ["scenarios-admin"] });
   };
   const rows = (q.data ?? []).filter((s) => !filter || s.name.toLowerCase().includes(filter.toLowerCase()) || s.scenario_type.includes(filter.toLowerCase()));
